@@ -47,6 +47,15 @@ function DemoApp() {
         }
       />
 
+      <Match
+        pattern="/counter"
+        render={routerProps =>
+          <CodeSplit chunkName="counter" modules={{ Counter: require('./Counter') }}>
+            { ({ Counter }) => Counter && <Counter {...routerProps} /> }
+          </CodeSplit>
+        }
+      />
+
       <Miss component={Error404} />
     </div>
   );
