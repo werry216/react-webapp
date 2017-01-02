@@ -1,14 +1,7 @@
-/* @flow */
-
 const { log } = require('../utils');
 
 class ListenerManager {
-  name: string;
-  lastConnectionKey: number;
-  connectionMap: { [key: string|number]: Object };
-  listener: Object;
-
-  constructor(listener : Object, name : string) {
+  constructor(listener, name) {
     this.name = name || 'listener';
     this.lastConnectionKey = 0;
     this.connectionMap = {};

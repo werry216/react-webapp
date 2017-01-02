@@ -1,15 +1,13 @@
-/* @flow */
-
 // Application Configuration.
 //
-// Please see the /docs/ApplicationConfig.md documentation for more info.
+// Please see the /docs/APPLICATION_CONFIG.md documentation for more info.
 //
 // Note: all file/folder paths should be relative to the project root. The
 // absolute paths should be resolved during runtime by our build tools/server.
 
 import { getStringEnvVar, getIntEnvVar } from './internals/environmentVars';
 import filterObject from './internals/filterObject';
-import type { BuildOptions } from '../tools/types';
+
 
 // This protects us from accidentally including this configuration in our
 // client bundle. That would be a big NO NO to do. :)
@@ -89,15 +87,16 @@ const config = {
   // Extended configuration for the Content Security Policy (CSP)
   // @see src/server/middleware/security for more info.
   cspExtensions: {
+    childSrc: [],
+    connectSrc: [],
     defaultSrc: [],
+    fontSrc: [],
+    imgSrc: [],
+    mediaSrc: [],
+    manifestSrc: [],
+    objectSrc: [],
     scriptSrc: [],
     styleSrc: [],
-    imgSrc: [],
-    connectSrc: [],
-    fontSrc: [],
-    objectSrc: [],
-    mediaSrc: [],
-    childSrc: [],
   },
 
   // node_modules are not included in any bundles that target "node" as a runtime
@@ -224,42 +223,19 @@ const config = {
         // Enabled?
         enabled: true,
 
-        // It is also possible that some modules require specific
-        // webpack loaders in order to be processed (e.g. CSS/SASS etc).
-        // For these cases you don't want to include them in the vendor dll,
-        // which has a very simple loader configuration.
-        // Add the respective modules to the ignores list below to ensure
-        // that they don't get bundled into the vendor DLL.
-        ignores: ['normalize.css/normalize.css'],
-
-        // Which libaries should be excluded when interpreting the package.json
-        // dependencies?
+        // Specify any dependencies that you would like to include in the
+        // Vendor DLL.
         //
-        // You should exclude dependencies meant for a server/node process and
-        // you should also exclude modules that may contain files requiring a
-        // webpack loader to parse them (e.g. CSS/SASS etc).
-        exclude: [
-          // Requires webpack loaders:
-          'normalize.css',
-
-          // Only used by node/server:
-          'app-root-dir',
-          'colors',
-          'compression',
-          'dotenv',
-          'express',
-          'helmet',
-          'hpp',
-          'offline-plugin',
-          'serialize-javascript',
-          'source-map-support',
-          'uuid',
-          'user-home',
+        // NOTE: It is also possible that some modules require specific
+        // webpack loaders in order to be processed (e.g. CSS/SASS etc).
+        // For these cases you don't want to include them in the Vendor DLL.
+        include: [
+          'code-split-component',
+          'react',
+          'react-dom',
+          'react-helmet',
+          'react-router',
         ],
-
-        // Specify any additional dependencies that you would like to
-        // explicitly include.
-        include: [],
 
         // The name of the vendor DLL.
         name: '__dev_vendor_dll__',
@@ -320,7 +296,7 @@ const config = {
     //
     // Please use the provided values and then ensure that you return the
     // appropriate values for the given target and mode.
-    babelConfig: (buildOptions : BuildOptions) => {
+    babelConfig: (buildOptions) => {
       const { target, mode } = buildOptions;
 
       return {
@@ -407,7 +383,7 @@ const config = {
     // This function will be called once for each for your bundles.  It will be
     // provided the current webpack config, as well as the buildOptions which
     // detail which bundle and mode is being targetted for the current function run.
-    webpackConfig: (webpackConfig: Object, buildOptions : BuildOptions) => {
+    webpackConfig: (webpackConfig, buildOptions) => {
       const { target, mode } = buildOptions; // eslint-disable-line no-unused-vars
 
       // Example:
