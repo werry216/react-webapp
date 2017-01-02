@@ -27,6 +27,19 @@ exports[`<Home /> renders 1`] = `
       isActive={[Function]}
       replace={false}
       style={Object {}}
+      to="/counter">
+      Counter
+    </Link>
+  </li>
+  <li>
+    <Link
+      activeClassName=""
+      activeOnlyWhenExact={false}
+      activeStyle={Object {}}
+      className=""
+      isActive={[Function]}
+      replace={false}
+      style={Object {}}
       to="/about">
       About
     </Link>

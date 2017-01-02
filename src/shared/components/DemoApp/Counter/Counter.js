@@ -1,5 +1,3 @@
-/* @flow */
-
 import React from 'react';
 import Helmet from 'react-helmet';
 import { extendObservable } from 'mobx';
@@ -16,23 +14,23 @@ class Counter extends React.Component {
   }
 
   inc() {
-    this.count++;
+    this.count += 1;
   }
 
   dec() {
-    this.count--;
+    this.count -= 1;
   }
 
   render() {
     return (
       <div style={{ textAlign: 'center' }}>
-        <Helmet title="Counter"/>
+        <Helmet title="Counter" />
         <div>{this.count}</div>
         <button onClick={this.inc}>Inc</button>
         {' '}
         <button onClick={this.dec}>Dec</button>
       </div>
-    )
+    );
   }
 }
 
