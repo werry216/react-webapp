@@ -4,11 +4,16 @@ import Helmet from 'react-helmet';
 import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { withAsyncComponents } from 'react-async-component';
+import { Provider, useStaticRendering } from 'mobx-react';
 
 import config from '../../../config';
+import stringify from '../../../shared/utils/json/stringify';
 
 import ServerHTML from './ServerHTML';
 import DemoApp from '../../../shared/components/DemoApp';
+import Store from '../../../shared/store';
+
+useStaticRendering(true);
 
 /**
  * React application middleware, supports server side rendering.
@@ -39,10 +44,15 @@ export default function reactApplicationMiddleware(request, response) {
   // query for the results of the render.
   const reactRouterContext = {};
 
+  // Initialize the mobx store
+  const store = new Store();
+
   // Declare our React application.
   const app = (
     <StaticRouter location={request.url} context={reactRouterContext}>
-      <DemoApp />
+      <Provider {...store}>
+        <DemoApp />
+      </Provider>
     </StaticRouter>
   );
 
@@ -54,6 +64,7 @@ export default function reactApplicationMiddleware(request, response) {
       <ServerHTML
         reactAppString={renderToString(appWithAsyncComponents)}
         nonce={nonce}
+        initialState={stringify(store)}
         helmet={Helmet.rewind()}
         asyncComponents={{ state, STATE_IDENTIFIER }}
       />,

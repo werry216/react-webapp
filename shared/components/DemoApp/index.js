@@ -8,6 +8,7 @@ import './globals.css';
 
 import AsyncHome from './AsyncHome';
 import AsyncAbout from './AsyncAbout';
+import AsyncCounter from './AsyncCounter';
 import Error404 from './Error404';
 import Header from './Header';
 
@@ -17,6 +18,7 @@ function DemoApp() {
       <Header />
       <Switch>
         <Route exact path="/" component={AsyncHome} />
+        <Route path="/counter" component={AsyncCounter} />
         <Route path="/about" component={AsyncAbout} />
         <Route component={Error404} />
       </Switch>

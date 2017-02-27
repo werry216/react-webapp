@@ -46,6 +46,7 @@ function scriptTag(jsFilePath) {
 function ServerHTML(props) {
   const {
     asyncComponents,
+    initialState,
     helmet,
     nonce,
     reactAppString,
@@ -91,6 +92,14 @@ function ServerHTML(props) {
       config('polyfillIO.enabled'),
       () => scriptTag(config('polyfillIO.url')),
     ),
+    // Write out the initial state so the client can construct
+    // our mobx store with data from the server.
+    onlyIf(
+      initialState,
+      () => inlineScript(
+        `window.__INITIAL_STATE__=${initialState}`,
+      ),
+    ),
     // When we are in development mode our development server will
     // generate a vendor DLL in order to dramatically reduce our
     // compilation times.  Therefore we need to inject the path to the
@@ -131,6 +140,8 @@ ServerHTML.propTypes = {
     state: PropTypes.object.isRequired,
     STATE_IDENTIFIER: PropTypes.string.isRequired,
   }),
+  // eslint-disable-next-line react/forbid-prop-types
+  initialState: PropTypes.string,
   // eslint-disable-next-line react/forbid-prop-types
   helmet: PropTypes.object,
   nonce: PropTypes.string,

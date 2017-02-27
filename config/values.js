@@ -281,7 +281,11 @@ const values = {
       if (target === 'server' && mode === 'development') {
         babelConfig.presets.push('foo');
       }
-     */
+      */
+      babelConfig.plugins.push(
+        'transform-decorators-legacy',
+        'transform-class-properties',
+      );
 
       return babelConfig;
     },
