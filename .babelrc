@@ -10,5 +10,9 @@
     ["env", { "targets": { "node": true } }],
     "stage-3",
     "react"
+  ],
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-class-properties"
   ]
 }
