@@ -418,9 +418,17 @@ export default function webpackConfigFactory(buildOptions) {
           loaders: [
             'style-loader',
             {
-              path: 'css-loader',
+              path: 'css-loader?modules=1&localIdentName=[path][name]-[local]',
               // Include sourcemaps for dev experience++.
               query: { sourceMap: true },
+            },
+            { path: 'postcss-loader' },
+            {
+              path: 'sass-loader',
+              options: {
+                outputStyle: 'expanded',
+                sourceMap: true,
+              },
             },
           ],
         }),
@@ -453,9 +461,7 @@ export default function webpackConfigFactory(buildOptions) {
         // server.
         ifElse(isClient || isServer)(
           mergeDeep(
-            {
-              test: /\.css$/,
-            },
+            { test: /(\.scss|\.css)$/ },
             // For development clients we will defer all our css processing to the
             // happypack plugin named "happypack-devclient-css".
             // See the respective plugin within the plugins section for full
@@ -472,13 +478,17 @@ export default function webpackConfigFactory(buildOptions) {
             ifOptimizeClient(() => ({
               loader: ExtractTextPlugin.extract({
                 fallback: 'style-loader',
-                use: ['css-loader'],
+                use: [
+                  { loader: 'css-loader', options: { modules: 1, localIdentName: '[hash:base64:5]', sourceMap: true, importLoaders: 2 } },
+                  { loader: 'postcss-loader' },
+                  { loader: 'sass-loader' },
+                ],
               }),
             })),
             // When targetting the server we use the "/locals" version of the
             // css loader, as we don't need any css files for the server.
             ifNode({
-              loaders: ['css-loader/locals'],
+              loaders: ['css-loader/locals?modules=1&localIdentName=[path][name]-[local]', 'postcss-loader', 'sass-loader'],
             }),
           ),
         ),
