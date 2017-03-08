@@ -12,6 +12,7 @@ import stringify from '../../../shared/utils/json/stringify';
 import ServerHTML from './ServerHTML';
 import DemoApp from '../../../shared/components/DemoApp';
 import Store from '../../../shared/store';
+import getAuth from '../../../shared/store/Auth';
 
 useStaticRendering(true);
 
@@ -46,6 +47,9 @@ export default function reactApplicationMiddleware(request, response) {
 
   // Initialize the mobx store
   const store = new Store();
+
+  // Need to make sure we load the auth before the page loads
+  getAuth().loadAuth(request.user ? { username: request.user.username } : null);
 
   // Declare our React application.
   const app = (
