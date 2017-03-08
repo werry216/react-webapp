@@ -1,0 +1,9 @@
+exports[`<Login /> renders 1`] = `
+<Login
+  auth={
+    Auth {
+      "errorMessage": undefined,
+      "user": undefined,
+    }
+  } />
+`;
