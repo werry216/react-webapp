@@ -7,6 +7,7 @@ import Route from 'react-router-dom/Route';
 
 import './globals.scss';
 
+import styles from './index.scss';
 import AsyncHome from './AsyncHome';
 import AsyncAbout from './AsyncAbout';
 import AsyncCounter from './AsyncCounter';
@@ -39,7 +40,7 @@ const PrivateRoute = ({ component, ...rest }) => {  // eslint-disable-line
 
 function DemoApp() {
   return (
-    <div style={{ padding: '10px' }}>
+    <div className={styles.root}>
       <Header />
       <Switch>
         <Route exact path="/" component={AsyncHome} />

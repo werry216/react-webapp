@@ -17,7 +17,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -moz-font-feature-settings: "liga" on;
   color: rgba(0,0,0,.8);
-  font-size: 18px;
   line-height: 1.4;
 }
 
@@ -28,6 +27,16 @@ a {
 
 a, button, input {
   -webkit-tap-highlight-color: transparent;
+}
+
+menu, ol, ul {
+  padding: 0;
+  list-style: none;
+  list-style-image: none;
+}
+
+blockquote, dd, dl, figure, form, h1, h2, h3, h4, h5, h6, menu, ol, p, pre, ul {
+  margin: 0;
 }
 
 * {
