@@ -1,0 +1,41 @@
+@import '../variables.scss';
+
+.metabar {
+  background: #fff;
+  border-bottom: $border-light;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.inner {
+  position: relative;
+}
+
+.top {
+  height: 65px;
+}
+@media (max-width: 768px) {
+  .top {
+    height: 56px;
+  }
+}
+
+.nav {
+  border-top: $border-lightest;
+}
+
+.navItem {
+  color: rgba(0,0,0,.44);
+  display: inline-block;
+  padding: 13px 10px 13px 0;
+
+  &:last-child {
+    padding-right: 0;
+  }
+}
+
+.active {
+  color: rgba(0,0,0,.8);
+}

@@ -1,7 +1,0 @@
-exports[`<About /> renders 1`] = `
-<article>
-  <HelmetWrapper
-    title="About" />
-  This is a react starter kit with MongoDB, Express, React, Mobx.
-</article>
-`;

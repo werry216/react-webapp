@@ -2,8 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import { withRouter } from 'react-router-dom';
 import Link from 'react-router-dom/Link';
 import { observer, inject } from 'mobx-react';
-import Logo from './Logo';
-import Menu from './Menu';
+import Nav from './Nav';
+import logo from './logo.png';
+import style from '../structure.scss';
+import header from './header.scss';
 
 class Header extends Component {
   static propTypes = {
@@ -20,18 +22,33 @@ class Header extends Component {
     const isLoggedIn = this.props.auth.isLoggedIn;
 
     return (
-      <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
-        <Logo />
-        <h1>React, Universally</h1>
-        <Menu />
-        { isLoggedIn ?
-          <Link to="/logout" onClick={this.onLogout}>Logout</Link>
-          :
-          <Link to="/login">Login</Link>
-        }
+      <div className={header.metabar}>
+        <div className={`${style.container} ${style.flexRow} ${style.alignCenter} ${header.top}`}>
+          <Logo />
+          <div className={style.flexItem} />
+          <div>
+            { isLoggedIn ?
+              <Link to="/logout" onClick={this.onLogout}>Logout</Link>
+              :
+              <Link to="/login">Login</Link>
+            }
+          </div>
+        </div>
+        <div className={`${style.container}`}>
+          <Nav />
+        </div>
       </div>
     );
   }
+}
+
+function Logo() {
+  return (
+    <div>
+      <img src={logo} alt="Logo" style={{ height: '45px', verticalAlign: 'middle' }} />
+      <span style={{ lineHeight: '45px', verticalAlign: 'middle' }}>WebNovels</span>
+    </div>
+  );
 }
 
 export default inject('auth')(observer(withRouter(Header)));

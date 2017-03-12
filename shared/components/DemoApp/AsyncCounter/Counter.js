@@ -2,15 +2,19 @@ import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { observer, inject } from 'mobx-react';
 
+import style from '../structure.scss';
+
 function Counter({ counter }) {
   return (
-    <article>
-      <Helmet title="Counter" />
-      <div>{counter.pretty}</div>
-      <button onClick={counter.inc}>Inc</button>
-      {' '}
-      <button onClick={counter.dec}>Dec</button>
-    </article>
+    <main role="main">
+      <article className={`${style.container}`}>
+        <Helmet title="Counter" />
+        <div>{counter.pretty}</div>
+        <button onClick={counter.inc}>Inc</button>
+        {' '}
+        <button onClick={counter.dec}>Dec</button>
+      </article>
+    </main>
   );
 }
 
