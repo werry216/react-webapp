@@ -16,6 +16,7 @@
     "develop": "babel-node internal/development",
     "lint": "eslint client server shared config internal",
     "preinstall": "node internal/scripts/preinstall",
+    "postinstall": "yarn run build",
     "start": "node build/server",
     "test": "jest",
     "test:coverage": "jest --coverage"
